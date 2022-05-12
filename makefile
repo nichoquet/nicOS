@@ -7,22 +7,6 @@ CFLAGS = -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -fno-PIC
 
 all: clean run
 
-
-
-
-
-# kernel_entry.o: boot/kernel_entry.asm
-# 	nasm $< -f elf -o build/$@
-
-# kernel.o: kernel.c
-# 	gcc -m32 -fno-pie -c $< -o $@
-
-# kernel.dis: kernel.bin
-# 	ndisasm -b 32 $< > $@
-
-# bootsect.bin: bootsect.asm
-# 	nasm $< -f bin -o $@
-
 os-image.bin: boot/bootsect.bin kernel.bin
 	cat $^ > $@
 

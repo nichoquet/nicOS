@@ -37,7 +37,7 @@ kernel.elf: boot/kernel_entry.o ${OBJ}
 run: os-image.bin
 	qemu-system-i386 -fda $<
 
-debug: os-image.bin kernel.elf
+debug: clean os-image.bin kernel.elf
 	qemu-system-i386 -s -fda os-image.bin &
 	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"
 

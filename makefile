@@ -3,8 +3,7 @@ HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h)
 OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o} 
 CC = /usr/bin/gcc
 GDB = /usr/share/gdb
-CFLAGS = -g -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs \
-		 -Wall -Wextra -Werror -fno-PIC
+CFLAGS = -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -fno-PIC
 
 all: clean run
 

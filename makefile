@@ -1,6 +1,6 @@
 C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c)
 HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h)
-OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o} 
+OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
 CC = /usr/bin/gcc
 GDB = /usr/share/gdb
 CFLAGS = -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -fno-PIC
@@ -10,10 +10,10 @@ all: clean run
 os-image.bin: boot/bootsect.bin kernel.bin
 	cat $^ > $@
 
-kernel.bin: boot/kernel_entry.o ${OBJ}
+kernel.bin: boot/kernel_entry.o ${OBJ} cpu/thread_handler.o
 	ld -m elf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary
 
-kernel.elf: boot/kernel_entry.o ${OBJ}
+kernel.elf: boot/kernel_entry.o ${OBJ} cpu/thread_handler.o
 	ld -m elf_i386 -o $@ -Ttext 0x1000 $^ 
 
 run: os-image.bin

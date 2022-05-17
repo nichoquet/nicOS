@@ -1,14 +1,14 @@
 #ifndef STRINGS_H
 #define STRINGS_H
 
-typedef char string[];
+typedef char *string;
 
-void int_to_ascii(int n, char str[]);
-void hex_to_ascii(int n, char str[]);
-void reverse(char s[]);
-int strlen(char s[]);
-void backspace(char s[]);
-void append(char s[], char n);
-int strcmp(char s1[], char s2[]);
+void int_to_ascii(int n, string str);
+void hex_to_ascii(int n, string str);
+void reverse(string s);
+int strlen(string s);
+void backspace(string s);
+void append(string s, char n);
+int strcmp(string s1, string s2);
 
 #endif

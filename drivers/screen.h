@@ -2,6 +2,7 @@
 #define SCREEN_H
 
 #include "../cpu/type.h"
+#include "../libc/string.h"
 
 #define VIDEO_ADDRESS 0xb8000
 #define MAX_ROWS 25
@@ -15,8 +16,8 @@
 
 /* Public kernel API */
 void clear_screen();
-void kprint_at(char *message, int col, int row);
-void kprint(char *message);
+void kprint_at(string message, int col, int row);
+void kprint(string message);
 void kprint_backspace();
 
 #endif

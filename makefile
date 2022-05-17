@@ -1,10 +1,12 @@
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c)
+# C_SOURCES = $(wildcard kernel/*.cpp)
+# HEADERS = $(wildcard kernel/*.h)
+C_SOURCES = $(wildcard kernel/*.cpp drivers/*.cpp cpu/*.cpp libc/*.cpp)
 HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h)
-OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
+OBJ = ${C_SOURCES:.cpp=.o cpu/interrupt.o}
 CC = /usr/bin/gcc
 GDB = /usr/share/gdb
-CFLAGS = -g -ffreestanding -Wall -Wextra -fno-exceptions -m32 -fno-PIC
-
+CFLAGS = -ffreestanding -Wall -Wextra -fno-exceptions -m32 -fno-PIC -w
+CPPFLAGS = -g -ffreestanding -O2 -fno-rtti -Wall -Wextra -fno-exceptions -m32 -fno-PIC -Wno-write-strings
 all: clean run
 
 os-image.bin: boot/bootsect.bin kernel.bin
@@ -24,7 +26,7 @@ debug: clean os-image.bin kernel.elf
 	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"
 
 %.o: %.c ${HEADERS}
-	${CC} ${CFLAGS} -ffreestanding -c $< -o $@
+	${CC} ${CPPFLAGS} -ffreestanding -c $< -o $@
 
 %.o: %.asm
 	nasm $< -f elf -o $@

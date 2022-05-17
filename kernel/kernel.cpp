@@ -1,6 +1,6 @@
+#include "kernel.h"
 #include "../cpu/isr.h"
 #include "../drivers/screen.h"
-#include "kernel.h"
 #include "../libc/string.h"
 #include "../libc/mem.h"
 #include <stdint.h>
@@ -15,15 +15,13 @@
 //     kprint_at("Test 2", 0,2);
 // }
 
+extern "C"
 void kernel_main() {
     isr_install();
     irq_install();
-    clear_screen();
     // n_thread_start(&func1);
     // n_thread_start(&func2);
-
-    kprint("Type something, it will go through the kernel\n"
-        "Type END to halt the CPU or PAGE to request a kmalloc()\n> ");
+    kprint("Type something, it will go through the kernel\nType END to halt the CPU or PAGE to request a kmalloc()\n> ");
     // while(true == true) {
     //     kprint_at("Test", 1,1);
     // }

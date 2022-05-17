@@ -4,7 +4,7 @@
 /**
  * K&R implementation
  */
-void int_to_ascii(int n, char str[]) {
+void int_to_ascii(int n, string str) {
     int i, sign;
     if ((sign = n) < 0) n = -n;
     i = 0;
@@ -18,7 +18,7 @@ void int_to_ascii(int n, char str[]) {
     reverse(str);
 }
 
-void hex_to_ascii(int n, char str[]) {
+void hex_to_ascii(int n, string str) {
     append(str, '0');
     append(str, 'x');
     char zeros = 0;
@@ -39,7 +39,7 @@ void hex_to_ascii(int n, char str[]) {
 }
 
 /* K&R */
-void reverse(char s[]) {
+void reverse(string s) {
     int c, i, j;
     for (i = 0, j = strlen(s)-1; i < j; i++, j--) {
         c = s[i];
@@ -49,26 +49,26 @@ void reverse(char s[]) {
 }
 
 /* K&R */
-int strlen(char s[]) {
+int strlen(string s) {
     int i = 0;
     while (s[i] != '\0') ++i;
     return i;
 }
 
-void append(char s[], char n) {
+void append(string s, char n) {
     int len = strlen(s);
     s[len] = n;
     s[len+1] = '\0';
 }
 
-void backspace(char s[]) {
+void backspace(string s) {
     int len = strlen(s);
     s[len-1] = '\0';
 }
 
 /* K&R 
  * Returns <0 if s1<s2, 0 if s1==s2, >0 if s1>s2 */
-int strcmp(char s1[], char s2[]) {
+int strcmp(string s1, string s2) {
     int i;
     for (i = 0; s1[i] == s2[i]; i++) {
         if (s1[i] == '\0') return 0;

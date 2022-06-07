@@ -31,3 +31,36 @@ uint32_t kmalloc(size_t size, int align, uint32_t *phys_addr) {
     free_mem_addr += size; /* Remember to increment the pointer */
     return ret;
 }
+
+uint32_t malloc(size_t size) {
+    /* Pages are aligned to 4K, or 0x1000 */
+    if ((free_mem_addr & 0xFFFFF000)) {
+        free_mem_addr &= 0xFFFFF000;
+        free_mem_addr += 0x1000;
+    }
+    uint32_t ret = free_mem_addr;
+    free_mem_addr += size; /* Remember to increment the pointer */
+    return ret;
+}
+
+void free(void * address) {}
+
+void *operator new(size_t size)
+{
+    return (void *)malloc(size);
+}
+ 
+void *operator new[](size_t size)
+{
+    return (void *)malloc(size);
+}
+ 
+void operator delete(void *p)
+{
+    free(p);
+}
+ 
+void operator delete[](void *p)
+{
+    free(p);
+}

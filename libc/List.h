@@ -1,16 +1,25 @@
 template <typename T>
 class ListItem {
-    ListItem<T>* next;
-    ListItem<T>* last;
+    private:
+        T* item;
+        ListItem<T>* next;
+        ListItem<T>* last;
+    public:
+        ListItem<T>(){
+            // this->item = item;
+        }
 };
 template <typename T>
 class List {
     private:
         int nbItemMax;
-        ListItem<T> *items[];
+        ListItem<T> *items;
     public:
         List<T>(unsigned int nbItemMax) {
             this->nbItemMax = nbItemMax;
+            int * test;
+            test = new int[3];
+            // this->items = new ListItem<T>[nbItemMax];
         }
 };
 

@@ -26,7 +26,6 @@ typedef struct {
 
 #define IDT_ENTRIES 256
 
-/* Functions implemented in idt.c */
 void set_idt_gate(int n, idt_handler_function handler);
 void set_idt();
 

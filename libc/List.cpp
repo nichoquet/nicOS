@@ -1,6 +1,9 @@
-// #include "List.h"
-// List create_list(int nbThreadMax) {
-//     List newList;
-//     newList.nbThreadMax = nbThreadMax;
-//     return newList;
+#include "List.h"
+// template<typename T>
+// List<T> List::List(unsigned int nbItemMax) {
+// }
+
+// List<int> * create_list(int nbItemMax) {
+//     // List<int> * newList = 
+//     return new List<int>(nbItemMax);;
 // }

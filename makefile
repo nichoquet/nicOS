@@ -3,10 +3,10 @@
 C_SOURCES = $(wildcard kernel/*.cpp drivers/*.cpp cpu/*.cpp libc/*.cpp)
 HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h)
 OBJ = ${C_SOURCES:.cpp=.o cpu/interrupt.o}
-CC = /usr/bin/gcc
+CC = /usr/bin/g++
 GDB = /usr/share/gdb
 CFLAGS = -ffreestanding -Wall -Wextra -fno-exceptions -m32 -fno-PIC -w
-CPPFLAGS = -g -ffreestanding -O2 -fno-rtti -Wall -Wextra -fno-exceptions -m32 -fno-PIC -Wno-write-strings
+CPPFLAGS = -g -ffreestanding -O2 -fno-rtti -Wall -Wextra -fno-exceptions -m32 -fno-PIC -Wno-write-strings -lstdc++
 all: clean run
 
 os-image.bin: boot/bootsect.bin kernel.bin

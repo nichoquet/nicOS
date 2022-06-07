@@ -3,7 +3,6 @@
 #include "../libc/mem.h"
 #include "../libc/string.h"
 
-/* Declaration of private functions */
 int get_cursor_offset();
 void set_cursor_offset(int offset);
 int print_char(char c, int col, int row, char attr);

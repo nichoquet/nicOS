@@ -17,9 +17,7 @@ class List {
     public:
         List<T>(unsigned int nbItemMax) {
             this->nbItemMax = nbItemMax;
-            int * test;
-            test = new int[3];
-            // this->items = new ListItem<T>[nbItemMax];
+            this->items = new ListItem<T>[nbItemMax];
         }
 };
 

@@ -24,7 +24,7 @@ void kernel_main() {
     // n_thread_start(&func1);
     // n_thread_start(&func2);
     kprint("Type something, it will go through the kernel\nType END to halt the CPU or PAGE to request a kmalloc()\n> ");
-    List<int> lst(3);
+    List<string> lst(3);
     // while(true == true) {
     //     kprint_at("Test", 1,1);
     // }

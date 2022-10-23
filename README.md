@@ -17,8 +17,9 @@ Ultra basic assembly/C++ OS
 
 ## Long terms goals
 1) GUI
-2) Emulating other cpu architechture application
-3) Creating Higher level programing langage
+2) x86_64
+3) Emulating other cpu architechture application
+4) Creating Higher level programing langage
 
 ## How to start
 ### Wsl Ubuntu (Need win11)

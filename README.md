@@ -14,6 +14,7 @@ Ultra basic assembly/C++ OS
 7) Support colors
 8) Support sprites
 9) Support mouse (at least copy paste)
+10) Storage
 
 ## Long terms goals
 1) GUI

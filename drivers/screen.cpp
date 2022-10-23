@@ -2,6 +2,7 @@
 #include "../cpu/ports.h"
 #include "../libc/mem.h"
 #include "../libc/string.h"
+#include "../libc/Converter.h"
 
 int get_cursor_offset();
 void set_cursor_offset(int offset);
@@ -41,6 +42,16 @@ void kprint_at(string message, int col, int row) {
 
 void kprint(string message) {
     kprint_at(message, -1, -1);
+}
+
+void kprint(int message) {
+    kprint_at(Converter::Convert(message), -1, -1);
+}
+
+void kprintHexAdress(int hexValue) {
+    char toReturn[16] = "";
+    hex_to_ascii(hexValue, toReturn);
+    kprint_at(toReturn, -1, -1);
 }
 
 void kprint_backspace() {

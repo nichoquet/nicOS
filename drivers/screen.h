@@ -3,6 +3,7 @@
 
 #include "../cpu/type.h"
 #include "../libc/string.h"
+#include "../libc/boolean.h"
 
 #define VIDEO_ADDRESS 0xb8000
 #define MAX_ROWS 25
@@ -18,6 +19,8 @@
 void clear_screen();
 void kprint_at(string message, int col, int row);
 void kprint(string message);
+void kprint(int message);
+void kprintHexAdress(int message);
 void kprint_backspace();
 
 #endif

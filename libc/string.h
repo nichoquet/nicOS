@@ -3,6 +3,13 @@
 
 typedef char *string;
 
+// class string {
+//     private:
+//         char* content;
+//     public:
+//         string(char* content);
+// };
+
 void int_to_ascii(int n, string str);
 void hex_to_ascii(int n, string str);
 void reverse(string s);

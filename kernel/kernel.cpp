@@ -14,10 +14,6 @@ void kernel_main() {
     clear_screen();
     MemoryHandler::InitializeInstance();
     kprint("Type something, it will go through the kernel\nType END to halt the CPU or PAGE to request a kmalloc()\n> ");
-    List<string> * lst = new List<string>(3);
-    List<string> * lst2 = new List<string>(3);
-    delete lst;
-    delete lst2;
 }
 void user_input(char *input) {
     if (strcmp(input, "END") == 0) {

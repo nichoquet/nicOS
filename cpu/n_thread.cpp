@@ -1,7 +1,7 @@
 #include "n_thread.h"
 #include "../cpu/type.h"
 
-// const threads = u32[];
+// const threads = uint32_t[];
 
 void n_thread_start(n_thread_callback callback) {
     callback();

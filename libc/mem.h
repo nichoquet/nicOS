@@ -31,6 +31,7 @@ class MemoryHandler {
         static uint32_t getMemoryTableAdressOfPage(uint32_t pageNo);
     public:
         static uint32_t getNextAvailableAdress();
+        static uint32_t getNextAvailableAdressAndUseIt();
         static void freeAdress(uint32_t address);
         static void InitializeInstance();
 };

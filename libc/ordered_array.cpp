@@ -3,7 +3,7 @@
 //                    Written for JamesM's kernel development tutorials.
 
 #include "ordered_array.h"
-#include "kheap.h"
+#include "mem.h"
 
 int8_t standard_lessthan_predicate(type_t a, type_t b)
 {
@@ -13,7 +13,7 @@ int8_t standard_lessthan_predicate(type_t a, type_t b)
 ordered_array_t create_ordered_array(uint32_t max_size, lessthan_predicate_t less_than)
 {
     ordered_array_t to_ret;
-    to_ret.array = (type_t*)kmalloc(max_size*sizeof(type_t));
+    to_ret.array = (type_t*)malloc(max_size*sizeof(type_t));
     memory_set((uint8_t*)to_ret.array, 0, max_size*sizeof(type_t));
     to_ret.size = 0;
     to_ret.max_size = max_size;

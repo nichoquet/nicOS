@@ -8,6 +8,7 @@ typedef          short int16_t;
 typedef unsigned char  uint8_t;
 typedef          char  int8_t;
 typedef unsigned int size_t;
+typedef char* String;
 
 #define low_16(address) (uint16_t)((address) & 0xFFFF)
 #define high_16(address) (uint16_t)(((address) >> 16) & 0xFFFF)

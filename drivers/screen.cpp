@@ -3,7 +3,7 @@
 // #include "../libc/mem.h"
 #include "../libc/string.h"
 #include "../libc/Converter.h"
-#include "../libc/kheap.h"
+#include "../libc/mem.h"
 
 int get_cursor_offset();
 void set_cursor_offset(int offset);
@@ -61,7 +61,6 @@ void kprint_backspace() {
     int col = get_offset_col(offset);
     print_char(0x08, col, row, WHITE_ON_BLACK);
 }
-
 
 /**********************************************************
  * Private kernel functions                               *

@@ -1,10 +1,11 @@
 #ifndef MEM_H
 #define MEM_H
 
-#define MEMORY_TABLE_ADRESS_START 0x10000 // 65 536
-#define MEMORY_TABLE_PAGE_SIZE 0x1000 // 4K
-#define MEMORY_TABLE_BLOCK_SIZE 0x1000 // 4K
-#define MEMORY_TABLE_AVAILABLE_PAGE_NO 2
+#define MEMORY_TABLE_ADRESS_START 0x10000 // 65 536
+#define MEMORY_TABLE_PAGE_SIZE 0x1000 // 4 K
+
+/* number of pages we are able to allocate; the page table itself
+   lives in the first page immediately following MEMORY_TABLE_ADRESS_START. */
 #define MEMORY_TABLE_NB_OF_PAGES 2
 
 #include "../cpu/type.h"

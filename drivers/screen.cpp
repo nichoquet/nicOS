@@ -1,5 +1,6 @@
 #include "screen.h"
 #include "../cpu/ports.h"
+#include "serial.h"          // send output to QEMU console via COM1
 // #include "../libc/mem.h"
 #include "../libc/string.h"
 #include "../libc/Converter.h"
@@ -21,6 +22,9 @@ int get_offset_col(int offset);
  * If col, row, are negative, we will use the current offset
  */
 void kprint_at(string message, int col, int row) {
+    /* always mirror output to serial port so we can read it from QEMU console */
+    Serial::WriteString(message);
+
     /* Set cursor if col/row are negative */
     int offset;
     if (col >= 0 && row >= 0)
@@ -42,6 +46,7 @@ void kprint_at(string message, int col, int row) {
 }
 
 void kprint(string message) {
+    // serial output already handled in kprint_at
     kprint_at(message, -1, -1);
 }
 
@@ -158,3 +163,36 @@ void clear_screen() {
 int get_offset(int col, int row) { return 2 * (row * MAX_COLS + col); }
 int get_offset_row(int offset) { return offset / (2 * MAX_COLS); }
 int get_offset_col(int offset) { return (offset - (get_offset_row(offset)*2*MAX_COLS))/2; }
+
+/* Drawing helpers --------------------------------------------------- */
+
+/* Draw a single character at the given cell using the provided attribute. */
+void draw_char(int col, int row, char c, char attr) {
+    print_char(c, col, row, attr);
+}
+
+/* Horizontal line of 'length' cells starting at (col,row). */
+void draw_hline(int col, int row, int length, char attr) {
+    int i;
+    for (i = 0; i < length; i++) {
+        print_char(' ', col + i, row, attr);
+    }
+}
+
+/* Vertical line of 'length' cells starting at (col,row). */
+void draw_vline(int col, int row, int length, char attr) {
+    int i;
+    for (i = 0; i < length; i++) {
+        print_char(' ', col, row + i, attr);
+    }
+}
+
+/* Filled rectangle starting at (col,row) with given width/height. */
+void draw_box(int col, int row, int width, int height, char attr) {
+    int r,c;
+    for (r = 0; r < height; r++) {
+        for (c = 0; c < width; c++) {
+            print_char(' ', col + c, row + r, attr);
+        }
+    }
+}

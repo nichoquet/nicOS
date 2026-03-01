@@ -24,8 +24,15 @@ $(KERNEL_ELF): $(BUILD_DIR)/boot/kernel_entry.o $(OBJ)
 $(IMAGE): $(BUILD_DIR)/boot/bootsect.bin $(KERNEL_BIN)
 	cat $^ > $@
 
+QEMU_EXTRA ?=
+QEMU_FLAGS = -m 512 -smp 4 -serial stdio $(QEMU_EXTRA)
+
+# The -serial stdio argument causes QEMU to redirect COM1 to the host
+# terminal.  Any characters sent to the serial port (0x3F8) by the kernel
+# will appear in the QEMU console, which we use for logging.
+
 run: $(IMAGE)
-	qemu-system-i386 -fda $<
+	qemu-system-i386 -fda $< $(QEMU_FLAGS)
 
 debug: clean $(IMAGE) $(KERNEL_ELF)
 	qemu-system-i386 -s -fda $(IMAGE) &

@@ -2,38 +2,46 @@
 # HEADERS = $(wildcard kernel/*.h)
 C_SOURCES = $(wildcard kernel/*.cpp drivers/*.cpp cpu/*.cpp libc/*.cpp)
 HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h)
-OBJ = ${C_SOURCES:.cpp=.o cpu/interrupt.o}
+BUILD_DIR = build
+OBJ = $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(C_SOURCES)) $(BUILD_DIR)/cpu/interrupt.o
 CC = /usr/bin/gcc
 GDB = /usr/share/gdb
 CFLAGS = -ffreestanding -Wall -Wextra -fno-exceptions -m32 -fno-PIC -w
 CPPFLAGS = -g -ffreestanding -O2 -fno-rtti -Wall -Wextra -fno-exceptions -m32 -fno-PIC -Wno-write-strings -libsupc++
+
+IMAGE = $(BUILD_DIR)/os-image.bin
+KERNEL_BIN = $(BUILD_DIR)/kernel.bin
+KERNEL_ELF = $(BUILD_DIR)/kernel.elf
+
 all: clean run
 
-os-image.bin: boot/bootsect.bin kernel.bin
-	cat $^ > $@
-
-kernel.bin: boot/kernel_entry.o ${OBJ}
+$(KERNEL_BIN): $(BUILD_DIR)/boot/kernel_entry.o $(OBJ)
 	ld -m elf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary
 
-kernel.elf: boot/kernel_entry.o ${OBJ}
+$(KERNEL_ELF): $(BUILD_DIR)/boot/kernel_entry.o $(OBJ)
 	ld -m elf_i386 -o $@ -Ttext 0x1000 $^ 
 
-run: os-image.bin
+$(IMAGE): $(BUILD_DIR)/boot/bootsect.bin $(KERNEL_BIN)
+	cat $^ > $@
+
+run: $(IMAGE)
 	qemu-system-i386 -fda $<
 
-debug: clean os-image.bin kernel.elf
-	qemu-system-i386 -s -fda os-image.bin &
-	${GDB} -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"
+debug: clean $(IMAGE) $(KERNEL_ELF)
+	qemu-system-i386 -s -fda $(IMAGE) &
+	${GDB} -ex "target remote localhost:1234" -ex "symbol-file $(KERNEL_ELF)"
 
-%.o: %.c ${HEADERS}
+$(BUILD_DIR)/%.o: %.cpp ${HEADERS}
+	mkdir -p $(dir $@)
 	${CC} ${CPPFLAGS} -ffreestanding -c $< -o $@
 
-%.o: %.asm
+$(BUILD_DIR)/%.o: %.asm
+	mkdir -p $(dir $@)
 	nasm $< -f elf -o $@
 
-%.bin: %.asm
+$(BUILD_DIR)/%.bin: %.asm
+	mkdir -p $(dir $@)
 	nasm $< -f bin -o $@
 
 clean:
-	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o cpu/*.o libc/*.o
+	rm -rf $(BUILD_DIR)
